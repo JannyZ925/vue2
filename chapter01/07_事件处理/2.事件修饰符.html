@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>事件修饰符</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <!--  前三个常用，后三个了解即可  -->
+
+   <!--
+         注意：
+            1、修饰符可以连着写，如 .stop.prevent
+            2、.stop.prevent 和 .prevent.stop 两者写法执行的顺序不同，但结果相同(.stop.prevent 先阻止冒泡， .prevent.stop 先阻止默认行为)
+    -->
+
+    <h2>1、.prevent 阻止默认事件</h2>
+    <a href="https://www.baidu.com" @click.prevent="welcome">点我</a>
+
+
+    <h2>2、.stop 阻止事件冒泡</h2>
+    <div @click="welcome" style="width: 100px;height: 100px;background-color:pink;">
+        <button @click.stop="welcome">点我一下</button>
+    </div>
+
+
+    <h2>3、.once 事件只触发一次</h2>
+    <a href="#" @click.once="welcome">显示提示信息</a>
+
+
+    <h2>4、.capture 事件在捕获阶段触发</h2>
+    <div @click.capture="showMsg(1)" style="width: 100px;height: 100px;background-color:lightblue;padding: 20px">
+        <div @click="showMsg(2)" style="width: 80px;height: 80px;background-color:lightyellow;"></div>
+    </div>
+
+
+    <h2>5、.self 只有event.target是当前操作的元素时才触发事件</h2>
+    <div @click.self="welcome" style="width: 100px;height: 100px;background-color:yellowgreen;">
+        <button @click="welcome" >点我一下</button>
+    </div>
+
+
+    <h2>6、.passive 事件的默认行为立即执行，无需等待事件回调执行完毕</h2>
+    <ul @wheel.passive="showInfo" style="width: 100px;height: 200px;background-color:salmon;overflow: auto">
+        <li style="height: 100px;">1</li>
+        <li style="height: 100px;">2</li>
+        <li style="height: 100px;">3</li>
+        <li style="height: 100px;">4</li>
+    </ul>
+
+</div>
+
+<script>
+    Vue.config.productionTip = false  // 阻止Vue启动时生成生产代码提示
+    new Vue({
+        el: '#app',
+        data: {
+            name: '尚硅谷'
+        },
+        methods: {
+            welcome(event) {
+                // 阻止默认事件
+                // event.preventDefault();
+
+                // 阻止冒泡事件
+                // event.stopPropagation();
+
+                alert("欢迎");
+            },
+
+            showMsg(num){
+                console.log(num);
+            },
+
+            showInfo(){
+                for(let i = 0; i < 100000; i++){
+                    console.log(i);
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

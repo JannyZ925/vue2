@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object.defineProperty</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <script>
+        Vue.config.productionTip = false;  // 阻止vue启动时生成生产代码提示
+
+        let number = 18
+        let person = {
+            name: '张三',
+            sex: '男',
+
+            // 可枚举、可修改、可删除
+            // age: 18
+        }
+
+        Object.defineProperty(person, 'age', {
+            /* // value 和 get 是同一个作用，只能同时用一个
+            value: 18, 
+            enumerable: true,  // 控制属性是否可以枚举，默认值为false
+
+            // writable 和 set 是同一个作用，只能同时用一个
+            writable: true,  // 控制属性是否可以被修改，默认值为false
+            configurable: true,  // 控制属性是否可以被删除，默认值为false */
+
+
+            // 读取 person 的 age 的属性时，get 函数(getter)就会被调用，且返回值就是age的值
+            get() {
+                return number;
+            },
+
+
+            // 修改 person 的 age 的属性时，set 函数(setter)就会被调用，且会收到修改的具体值
+            set(value) {
+                number = value
+            }
+        })
+
+
+        // 输出对象的所有属性名
+        // console.log(Object.keys(person))
+
+        // 输出对象的所有属性值
+        // for(key in person){
+        //     console.log(person[key])
+        // }
+    </script>
+</body>
+
+</html>

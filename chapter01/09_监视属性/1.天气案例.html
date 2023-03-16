@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天气案例</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="app">
+        <h2>今天天气很{{info}}</h2>
+        <button @click="changeWeather">点我更改</button>
+
+        <!-- 
+            绑定事件的时候， @xxx="yyy"  yyy可以写一些简单的语句，如：
+            <button @click="isHot = !isHot">点我更改天气</button>
+
+            但是有些情况不能这样写，如：
+            <button @click="alert('1');">点我更改天气</button>
+            因为Vue会在实例对象vm中找，但是vm中没有alert，所以会报错，即使写成window.alert也会报错，因为vm中没有window
+            只有在vm中加上window对象，再将@click后的语句写成如下这样才可以实现，但是这样会增加工作量，没有必要，不如直接将alert语句写在methods当中
+            <button @click="window.alert('1');">点我更改天气</button>
+        -->
+    </div>
+
+    <script>
+        Vue.config.productionTip = false
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                isHot: true,
+                // window
+            },
+            computed: {
+                info() {
+                    return this.isHot ? '炎热' : '凉爽'
+                }
+            },
+            methods: {
+                changeWeather(){
+                    this.isHot = !this.isHot
+                }
+            },
+
+        })
+    </script>
+</body>
+
+</html>

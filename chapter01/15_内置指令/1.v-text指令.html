@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-text指令</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <!-- 
+        v-text指令：
+            1、作用：向其所在的节点中渲染文本内容
+            2、与插值语法的区别：v-text会替换节点中的内容，{{xx}}则不会
+     -->
+    <div id="app">
+        <h2>{{name}}</h2>
+        <h2 v-text="name"></h2>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false;
+        new Vue({   
+            el: '#app',
+            data: {
+                name: '尚硅谷'
+            }
+        });
+    </script>
+</body>
+</html>

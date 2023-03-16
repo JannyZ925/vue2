@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>更新时的一个问题</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <button @click="updateMei">更新马冬梅的信息</button>
+        <ul>
+            <li v-for="(p, index) in persons" :key="p.id">
+                {{p.name}}--{{p.age}}--{{p.sex}}
+            </li>
+        </ul>
+    </div>
+
+
+    <script>
+        Vue.config.productionTip = false
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                persons: [
+                    { id: '001', name: '周冬雨', age: '25', sex: '女' },
+                    { id: '002', name: '马冬梅', age: '20', sex: '女' },
+                    { id: '003', name: '林俊杰', age: '29', sex: '男' },
+                    { id: '004', name: '张杰', age: '27', sex: '男' },
+                ],
+            },
+            methods: {
+                updateMei(){
+                    // 奏效
+                    // this.persons[1].name = '马老师',
+                    // this.persons[1].age = 50
+                    // this.persons[1].sex = '男'
+
+                    // 不奏效
+                    // this.persons[1] = { id: '002', name: '马老师', age: 50, sex: '男' };
+
+                    // 奏效
+                    this.persons.splice(1, 1, { id: '002', name: '马老师', age: 50, sex: '男' })
+                }
+            },  
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绑定样式</title>
+    <script src="../js/vue.js"></script>
+
+    <style>
+        .basic {
+            width: 300px;
+            height: 100px;
+            border: 3px solid black;
+        }
+
+        .happy {
+            background-image: linear-gradient(45deg, lightyellow, lightpink, lightblue);
+        }
+
+        .sad {
+            background-color: lightblue;
+        }
+
+        .normal {
+            background-color: palegoldenrod;
+        }
+
+
+        .atguigu1 {
+            border-radius: 5px;
+        }
+
+        .atguigu2 {
+            box-shadow: 0 0 10px lightgrey;
+        }
+
+        .atguigu3 {
+            font-size: 40px;
+            color: brown;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 
+        绑定样式
+            1、class样式
+                写法 -- :class='xxx', xxx可以是字符串、对象、数组
+                
+                字符串写法：适用于类名不确定，要动态获取
+                对象写法：适用于要绑定多个样式，个数确定、名字确定，但不确定用不用
+                数组写法：适用于要绑定多个样式，个数不确定，名字也不确定
+            
+            2、style样式
+                :style="{fontSize:xxx}" 其中xxx是动态值
+                :style="[a,b]" 其中a、b是样式对象
+     -->
+
+    <div id="app">
+        <h3>绑定class样式--字符串写法：适用于样式的类名不确定，需要动态指定</h3>
+        <div class="basic" :class="mood" @click="changeMood">test</div>
+
+        <br><br>
+
+        <h3>绑定class样式--数组写法：适用于要绑定的样式个数不确定、名字也不确定</h3>
+        <div class="basic" :class="classArr">test</div>
+        <button @click="apply0">点我清除所有样式</button>
+        <button @click="apply1">点我应用atguigu1</button>
+        <button @click="apply2">点我应用atguigu2、atguigu3</button>
+        <button @click="applyAll">点我应用所有样式</button>
+
+        <br><br>
+
+        <h3>绑定class样式--对象写法：适用于要绑定的样式个数确定、名字也确定，但要动态决定用不用</h3>
+        <div class="basic" :class="classObj">test</div>
+
+        <br><br>
+
+
+        <!-- 以下两种了解即可 -->
+        <h3>绑定style样式--对象写法</h3>
+        <div class="basic" :style="styleObj">test</div>
+
+        <br><br>
+
+        <h3>绑定style样式--数组写法</h3>
+        <div class="basic" :style="styleArr">test</div>
+
+    </div>
+
+    <script>
+        Vue.config.productionTip = false;
+
+        new Vue({
+            el: '#app',
+            data: {
+                mood: 'normal',
+                classArr: [],
+                classObj: {
+                    atguigu1: true,
+                    atguigu2: false
+                },
+
+                styleObj: {
+                    fontSize: '40px',
+                    backgroundColor: 'yellowgreen'
+                },
+
+                styleArr: [
+                    {
+                        fontSize: '40px',
+                        backgroundColor: 'yellowgreen'
+                    },
+                    {
+                        color: 'brown',
+                    }
+                ]
+            },
+            methods: {
+                changeMood() {
+                    // 点击div切换背景颜色
+                    moodArr = ['normal', 'happy', 'sad'];
+                    let index = Math.floor(Math.random() * 3);
+                    console.log(index);
+                    this.mood = moodArr[index];
+                },
+
+                apply0() {
+                    this.classArr = [];
+                },
+
+                apply1() {
+                    this.apply0();
+                    this.classArr.push('atguigu1');
+                },
+
+                apply2() {
+                    this.apply0();
+                    this.classArr.push('atguigu2', 'atguigu3');
+                },
+
+                applyAll() {
+                    this.classArr = ['atguigu1', 'atguigu2', 'atguigu3'];
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>

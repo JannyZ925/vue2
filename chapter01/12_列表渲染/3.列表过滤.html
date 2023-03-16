@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>列表过滤</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" placeholder="输入姓名" v-model="keyword">
+        <ul>
+            <li v-for="(p, index) in filPersons" :key="p.id">
+                {{p.name}}--{{p.age}}--{{p.sex}}
+            </li>
+        </ul>
+    </div>
+
+
+    <script>
+        Vue.config.productionTip = false
+
+        // 用watch实现
+        /* new Vue({
+            el: '#app',
+            data: {
+                keyword: '',
+                persons: [
+                    { id: '001', name: '周冬雨', age: '19', sex: '女' },
+                    { id: '002', name: '马冬梅', age: '21', sex: '女' },
+                    { id: '003', name: '林俊杰', age: '25', sex: '男' },
+                    { id: '004', name: '张杰', age: '27', sex: '男' },
+                ],
+                filPersons: [],
+            },
+            watch: {
+                keyword: {
+                    immediate: true,
+                    handler(val) {
+
+                        // filter() 方法创建一个包含通过测试的数组元素的新数组
+                        // 此函数接受3个参数：项目值、项目索引、数组本身
+                        this.filPersons = this.persons.filter((p) => {
+                            return p.name.indexOf(val) !== -1;
+                        })
+                    }
+                }
+            }
+        }) */
+
+
+
+        // 用计算属性实现
+        new Vue({
+            el: '#app',
+            data: {
+                keyword: '',
+                persons: [
+                    { id: '001', name: '周冬雨', age: '25', sex: '女' },
+                    { id: '002', name: '马冬梅', age: '20', sex: '女' },
+                    { id: '003', name: '林俊杰', age: '29', sex: '男' },
+                    { id: '004', name: '张杰', age: '27', sex: '男' },
+                ]
+            },
+            computed: {
+                filPersons() {
+                    return this.persons.filter((p) => {
+                        return p.name.indexOf(this.keyword) != -1;
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
